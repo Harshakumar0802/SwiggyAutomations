@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="3" time="22.946">
+    <testcase classname="Location Functionality" name="Validate the url of Swiggy Page" time="11.49">
+        <system-out><![CDATA[Given User is on Swiggy Page................................................passed
+When User enters url of Swiggy..............................................passed
+Then User should be navigated to Swiggy page................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Location Functionality" name="Check if the Delivery Location field is giving suggestions for valid city names" time="5.21">
+        <system-out><![CDATA[Given User is on Swiggy Page................................................passed
+When User enters Valid "Pune" and get the list of suggestions...............passed
+Then User should be able to get suggestions for valid city names............passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Location Functionality" name="Check if the Delivery Location field is giving suggestions for valid city names 2" time="5.5">
+        <system-out><![CDATA[Given User is on Swiggy Page................................................passed
+When User enters Valid "Bangalore" and get the list of suggestions..........passed
+Then User should be able to get suggestions for valid city names............passed
+]]></system-out>
+    </testcase>
+</testsuite>

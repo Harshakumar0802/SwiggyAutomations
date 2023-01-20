@@ -1,0 +1,36 @@
+Feature: Location Functionality
+
+
+Scenario: Validate the url of Swiggy Page
+Given User is on Swiggy Page
+When User enters url of Swiggy
+Then User should be navigated to Swiggy page
+
+
+Scenario Outline: Check if the Delivery Location field is giving suggestions for valid city names
+Given User is on Swiggy Page
+When User enters Valid "<City names>" and get the list of suggestions
+Then User should be able to get suggestions for valid city names
+
+Examples: 
+     City names |
+      Pune       |
+      Bangalore  |
+
+ Feature: Search functionality
+
+ Background: Given User is on Search Page
+
+  
+Scenario: Check if User is able to get suggestions for Restaurant names in Search field
+Given User is on Search Page
+When User enters Restaurant name
+Then User should get appropriate suggestions
+    
+  
+Scenario: Check if User is able to click on suggestions by Restaurant name
+Given User is on Search Page
+When User enters Valid restaurant name
+And User is able to click on suggestions displayed
+Then User should be redirected to appropriate Restaurant result page
+

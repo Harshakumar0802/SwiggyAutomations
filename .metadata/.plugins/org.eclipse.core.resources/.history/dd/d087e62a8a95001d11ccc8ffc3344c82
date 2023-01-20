@@ -1,0 +1,105 @@
+package stepDefinitions;
+
+import java.util.List;
+import java.util.Map;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class DataTableExample {
+	public static WebDriver driver;
+@Before
+    
+    public void BeforeStepDef()
+    {
+        System.out.println("^^^^^^Executing Before Step^^^^^^");
+        System.setProperty("webdriver.chrome.driver", "./BrowserUtils/chromedriver.exe");
+        driver = new ChromeDriver();
+        
+        driver.get("https://www.amazon.in/");
+        
+        System.out.println("Login step execution");
+        
+        driver.manage().window().maximize();
+        
+        WebElement SignElement = driver.findElement(By.xpath("(//span[text()='Sign in'])[2]"));
+        
+        SignElement.click();
+        
+    }
+    
+@When("User enters valid Herok UserID and Herok Password")
+public void user_enters_valid_herok_user_id_and_herok_password(DataTable dataTable) {
+  
+    /*No Header */
+    
+/*    List<List<String>> TestData = dataTable.asLists(String.class);
+    String username = TestData.get(0).get(0);
+    String passwordvalue = TestData.get(0).get(1);*/
+    
+	/*table with header and one value*/
+  /*  List<Map<String,String>> TestData = dataTable.asMaps(String.class,String.class);
+    
+    String username = TestData.get(0).get("Userid");
+    String passwordvalue = TestData.get(0).get("Password");*/
+    
+    
+//    System.out.println(username);
+//    System.out.println(passwordvalue);
+    
+	
+	/*Table with header and multiple value */
+	List<Map<String, String>> TestData = dataTable.asMaps(String.class,String.class);
+    
+    for(Map<String, String> table:TestData)
+    {
+        String userName = table.get("Userid");
+        System.out.println(userName);
+        
+        String PasswordValue = table.get("Password");
+        System.out.println(PasswordValue);
+        
+        
+    }
+    
+    WebElement InputName = driver.findElement(By.xpath("//input[@name='email']"));
+  //  InputName.sendKeys(username);
+    WebElement Continue = driver.findElement(By.xpath("//input[@id='continue']"));
+    Continue.click();
+    WebElement Password = driver.findElement(By.xpath("//input[@name='password']"));
+    //Password.se
+
+
+    
+    
+}
+
+
+    
+    @Then("The user has logged in to HeroK App successfully")
+    public void the_user_has_logged_in_to_hero_k_app_successfully() {
+        // Write code here that turns the phrase above into concrete actions
+    	
+    	System.out.println("the user has entered both UserId and Password");
+       
+    }
+
+    @After
+  
+ public void AfterHookMethod()
+ {
+     System.out.println("--------Executing After Hook------");     
+     driver.close();
+      
+  }
+
+
+}

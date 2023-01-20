@@ -1,0 +1,59 @@
+package stepDefinitions;
+
+	import java.io.IOException;
+
+	import BrowserUtils.Browser;
+	import Pagefactoryy.swiggyLocationnPageFactory;
+	import Pagefactoryy.swiggySearchPageFactoryy;
+	import io.cucumber.datatable.DataTable;
+
+	import io.cucumber.java.en.Given;
+	import io.cucumber.java.en.Then;
+	import io.cucumber.java.en.When;
+
+	public class swiggySearchDefinition extends Browser{
+
+		swiggyLocationnPageFactory location;
+		swiggySearchPageFactoryy search;
+		
+
+		@Given("User is on Search Page")
+		public void user_is_on_search_page() throws InterruptedException {
+			driver.navigate().to("https://www.swiggy.com/search");
+			location=new swiggyLocationnPageFactory(driver);
+			search=new swiggySearchPageFactoryy(driver);
+			location.SearchField("Pune");
+			location.SearchFieldd();
+			search.search();
+		}
+		@When("User enters Restaurant name")
+		public void user_enters_restaurant_name() throws InterruptedException {
+
+			search.restaurantName();
+			search.suggestion();
+
+		}
+
+		@Then("User should get appropriate suggestions")
+		public void user_should_get_appropriate_suggestions() throws IOException, InterruptedException {
+			search.takeScreenshot("C:\\Users\\Harshith kumar\\eclipse-workspace\\JUnitWorkspace\\New folder\\suggestion screenshot.png");
+		
+		}
+
+		@When("User enters Valid restaurant name")
+		public void user_enters_valid_restaurant_name() throws InterruptedException {
+			search.validRestaurantName();
+		}
+		@When("User is able to click on suggestions displayed")
+		public void user_is_able_to_click_on_suggestions_displayed() throws InterruptedException, IOException {
+			search.openValidRestaurantName();
+		}
+
+		@Then("User should be redirected to appropriate Restaurant result page")
+		public void user_should_be_redirected_to_appropriate_restaurant_result_page() throws IOException, InterruptedException {
+			search.takeScreenshot("C:\\Users\\Harshith kumar\\eclipse-workspace\\JUnitWorkspace\\New folder\\restaurant page.png");
+			
+		}
+
+
+}

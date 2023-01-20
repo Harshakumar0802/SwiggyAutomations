@@ -1,0 +1,120 @@
+package stepDefinitions;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+
+import java.awt.AWTException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.IOException;
+
+import BrowserUtils.Browser;
+import PageFactoryy.swiggyLocationnPageFactory;
+import PageFactoryy.swiggySearchPageFactoryy;
+import io.cucumber.datatable.DataTable;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import BrowserUtils.Browser;
+import PageFactoryy.swiggyLocationnPageFactory;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.cucumber.datatable.DataTable;
+
+public class SwiggyTest extends Browser {
+	
+	swiggyLocationnPageFactory location;
+	swiggySearchPageFactoryy search;
+	public static WebDriver driver;
+	@Before
+	public void setUp() {
+		openBrowser();
+	}
+	
+	@After
+	public void tearDown()
+	{
+		closeBrowser();
+	}
+	
+	@Given("User is on Swiggy Page")
+	public void user_is_on_swiggy_page() {
+		driver.get("https://www.swiggy.com");
+		location=new swiggyLocationnPageFactory(driver);
+	}
+
+	@When("User enters url of Swiggy")
+	public void user_enters_url_of_swiggy() throws InterruptedException {
+		location.swiggyPage();
+
+	}
+
+	@Then("User should be navigated to Swiggy page")
+	public void user_should_be_navigated_to_swiggy_page() throws InterruptedException { 
+		location.validateSwiggyPage();
+
+	}
+
+	@When("User enters Valid {string} and get the list of suggestions")
+	public void user_enters_valid_and_get_the_list_of_suggestions(String string) throws InterruptedException {
+		location.locationSearchFieldScenarioOutline(string);
+
+
+	}
+
+	@Then("User should be able to get suggestions for valid city names")
+	public void user_should_be_able_to_get_suggestions_for_valid_city_names() throws InterruptedException {
+		location.validateCityPage();
+
+}
+
+	@Given("User is on Search Page")
+	public void user_is_on_search_page() throws InterruptedException {
+		driver.navigate().to("https://www.swiggy.com/search");
+		location=new swiggyLocationnPageFactory(driver);
+		search=new swiggySearchPageFactoryy(driver);
+		location.SearchField("Pune");
+		location.SearchFieldd();
+		search.search();
+	}
+	@When("User enters Restaurant name")
+	public void user_enters_restaurant_name() throws InterruptedException {
+
+		search.restaurantName();
+		search.suggestion();
+
+	}
+
+	@Then("User should get appropriate suggestions")
+	public void user_should_get_appropriate_suggestions() throws IOException, InterruptedException {
+		search.takeScreenshot("C:\\Users\\aavadhoo\\OneDrive - Capgemini\\Desktop\\JUnit\\com.swiggyyy\\Report\\suggestion screenshot.png");
+	
+	}
+	
+	@When("User enters Valid restaurant name")
+	public void user_enters_valid_restaurant_name() throws InterruptedException {
+		search.validRestaurantName();
+	}
+	@When("User is able to click on suggestions displayed")
+	public void user_is_able_to_click_on_suggestions_displayed() throws InterruptedException, IOException {
+		search.openValidRestaurantName();
+	}
+
+	@Then("User should be redirected to appropriate Restaurant result page")
+	public void user_should_be_redirected_to_appropriate_restaurant_result_page() throws IOException, InterruptedException {
+		search.takeScreenshot("C:\\Users\\aavadhoo\\OneDrive - Capgemini\\Desktop\\JUnit\\com.swiggyyy\\Report\\restaurant page.png");
+		
+	}
+}

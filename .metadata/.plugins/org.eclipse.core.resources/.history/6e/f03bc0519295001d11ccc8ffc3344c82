@@ -1,0 +1,93 @@
+package stepDefinitions;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class BackGroundExample {
+	
+	public static WebDriver driver;
+@Before
+    
+    public void BeforeStepDef()
+    {
+        System.out.println("^^^^^^Executing Before Step^^^^^^");
+        System.setProperty("webdriver.chrome.driver", "./BrowserUtils/chromedriver.exe");
+        driver = new ChromeDriver();
+        
+        driver.manage().window().maximize();
+        
+        
+        
+    }
+    
+    @Given("The user is on Home Page")
+    public void the_user_is_on_home_page() {
+        driver.get("https://www.amazon.in/");
+        
+    }
+
+@When("User Enters TestUserID and TestPassword")
+    public void user_enters_test_user_id_and_test_password(DataTable dataTable) {
+        
+        WebElement SignElement = driver.findElement(By.xpath("(//span[text()='Sign in'])[2]"));
+        
+        SignElement.click();
+        
+        List<List<String>> TestData = dataTable.asLists(String.class);
+        String username = TestData.get(0).get(0);
+        String passwordvalue = TestData.get(0).get(1);
+        
+         WebElement InputName = driver.findElement(By.xpath("//input[@name='email']"));
+         InputName.sendKeys(username);
+         
+          WebElement Continue = driver.findElement(By.xpath("//input[@id='continue']"));
+            Continue.click();
+            
+            WebElement Password = driver.findElement(By.xpath("//input[@name='password']"));
+             Password.sendKeys(passwordvalue);
+        
+        
+    }
+
+@Then("Check if the user has logged in successfully")
+    public void check_if_the_user_has_logged_in_successfully() {
+        
+    }
+    @When("The user is on Search Page")
+    public void the_user_is_on_search_page() {
+        
+        System.out.println("User is on Search Page");
+       
+    }
+    @Then("Gives the Search Term as {string}")
+    public void gives_the_search_term_as(String string) {
+        
+        System.out.println("User searches for " +string);
+       
+    }
+    @Then("Clicks on Search Icon")
+    public void clicks_on_search_icon() {
+        
+        System.out.println("User clicks on Search Icon");
+       
+    }
+
+    @After
+    
+    public void AfterHookMethod()
+    {
+        System.out.println("--------Executing After Hook------");     
+        driver.close();
+}
+}

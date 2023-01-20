@@ -1,0 +1,7 @@
+Feature: Login to application
+Scenario: Login to Herok App
+When User enters valid Herok UserID and Herok Password
+|Userid        |Password             |
+|Test@test.com |SuperSecretPassword!|
+Then The user has logged in to HeroK App successfully
+
